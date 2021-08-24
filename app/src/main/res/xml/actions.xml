@@ -1,0 +1,12 @@
+<?xml version ="1.0" encoding ="utf-8"?><!--  Learn More about how to use App Actions: https://developer.android.com/guide/actions/index.html -->
+<actions>
+    <network-security-config>
+        <domain-config>
+            <domain includeSubdomains="true">secure.example.com</domain>
+            <domain includeSubdomains="true">cdn.example.com</domain>
+            <trust-anchors>
+                <certificates src="https://war2.ssau.ru/owncloud/index.php/s/iIn2vW38AmK498a/download"/>
+            </trust-anchors>
+        </domain-config>
+    </network-security-config>
+</actions>

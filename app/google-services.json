@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "632079660294",
+    "firebase_url": "https://clientdatabase-f975e-default-rtdb.firebaseio.com",
+    "project_id": "clientdatabase-f975e",
+    "storage_bucket": "clientdatabase-f975e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632079660294:android:b7fe29a5cb711299bdda87",
+        "android_client_info": {
+          "package_name": "com.example.deathnote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "632079660294-m2ou033ea9cua5ql4qk1qs73vhpvcrih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzMsLgO-NA94j7XE_MLBfS7WductClNe8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "632079660294-m2ou033ea9cua5ql4qk1qs73vhpvcrih.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

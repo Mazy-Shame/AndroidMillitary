@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view"
+    tools:ignore="DuplicateIds">
+    <group android:menuCategory="container">
+        <item
+            android:id="@+id/Settings"
+            android:title="Настройки"></item>
+    </group>
+    <group android:menuCategory="container"
+        >
+        <item
+            android:id="@+id/about"
+            android:title="Создатели"
+            />
+        <item android:title="Добавить пользователей" android:visible="false" android:id="@+id/adminbutton"/>
+        <item android:title="Обновить данные" android:id="@+id/updatedata"/>
+    </group>
+
+</menu>
