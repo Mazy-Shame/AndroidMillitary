@@ -23,8 +23,10 @@ import com.example.deathnote.HelperClasses.CopyClass
 import com.example.deathnote.HelperClasses.downloadDB
 import com.example.deathnote.Options.Options
 import com.example.deathnote.Аuthentication.Authentication
+import com.google.android.gms.tasks.Tasks.await
 import com.google.android.material.navigation.NavigationView
 import java.io.File
+import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
@@ -74,12 +76,6 @@ class MainActivity : AppCompatActivity() {
             isAdminEnter()
             setOnClickUpdateData()
 
-            val ScrollButton = findViewById<ImageButton>(R.id.swipeButton)
-            ScrollButton.setOnClickListener {
-                val swipemenu1 = findViewById<DrawerLayout>(R.id.drawer_layout)     //кнопка отрытия меню
-                val swipemenu2 = findViewById<NavigationView>(R.id.nav_view)
-                swipemenu1.openDrawer(swipemenu2)
-            }
 //            dbhelp.openDataBase()
 
 //            try {
@@ -106,7 +102,6 @@ class MainActivity : AppCompatActivity() {
             val NavArray: ArrayList<String> = ArrayList()
             ConnecttoBase(NavArray, myDatabase)
             addMenuItemNavMenuDrawer(NavArray, myDatabase)
-
 
 
         }
@@ -288,14 +283,26 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun decompresszip(){
+        val swipemenu1 = findViewById<DrawerLayout>(R.id.drawer_layout)
+            swipemenu1.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
-        val handler = Handler()
-        var progressStatus = 0
-        val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
+        Thread(Runnable {val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
 
-            net.lingala.zip4j.ZipFile(File(path + "/images.zip")).extractAll(path)  //распаковка с помощью библиотеки
+                net.lingala.zip4j.ZipFile(File(path + "/images.zip")).extractAll(path)
+                val ScrollButton = findViewById<ImageButton>(R.id.swipeButton)
+                ScrollButton.setOnClickListener {
+                    val swipemenu1 = findViewById<DrawerLayout>(R.id.drawer_layout)     //кнопка отрытия меню
+                    val swipemenu2 = findViewById<NavigationView>(R.id.nav_view)
+                    swipemenu1.openDrawer(swipemenu2)
+                }
+            }).start()  //распаковка с помощью библиотеки
+
+
+
+
 
     }
+
 
 
 

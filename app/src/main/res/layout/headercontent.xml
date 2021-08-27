@@ -16,5 +16,6 @@
         app:layout_constraintHorizontal_bias="0.042"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_dialog_dialer" />
+        app:srcCompat="@android:drawable/ic_dialog_dialer"
+        android:clickable="false"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
