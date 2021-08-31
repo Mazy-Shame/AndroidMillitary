@@ -8,6 +8,7 @@ import android.content.IntentFilter
 import android.net.Uri
 import android.os.Environment
 import android.widget.Toast
+import com.example.deathnote.Storage
 
 
 class downloadIMG {

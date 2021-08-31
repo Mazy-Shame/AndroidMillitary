@@ -113,14 +113,19 @@ class Authentication : AppCompatActivity() {
             val presentationst = File("$path/images.zip")
 
 
-            if (ListData.size == 0) {
+            if (ListData.size == 0 || presentationst.length().toString() != "184255441") {
+
+                var a = 184255441/100
+                var b = presentationst.length().toInt() / a
+
                 Toast.makeText(
                     applicationContext,
-                    "Идёт загрузка данных, подождите...",
+                    "Скачано ${b} %",
                     Toast.LENGTH_SHORT
                 ).show()
             }
-            if (ListData.size != 0) {
+            if (ListData.size != 0 && presentationst.length().toString() == "184255441" ) {
+
                 var i : Int = 0
                 var isLogin : Boolean = false
 
@@ -193,9 +198,9 @@ class Authentication : AppCompatActivity() {
                         "https://war2.ssau.ru/owncloud/index.php/s/a2mEeO4SzOSWUkK/download",
                         downloadmanager
                 )
-                Storage.ispresentationdownload = true
             }).start()
         }
+
     }
 
 

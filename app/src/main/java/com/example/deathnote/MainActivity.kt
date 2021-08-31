@@ -283,10 +283,18 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun decompresszip(){
-        val swipemenu1 = findViewById<DrawerLayout>(R.id.drawer_layout)
+        val pathtodecompress = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath + "/images1")
+        if (!pathtodecompress.exists()){
+            val swipemenu1 = findViewById<DrawerLayout>(R.id.drawer_layout)
             swipemenu1.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
-        Thread(Runnable {val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
+            Toast.makeText(
+                    applicationContext,
+                    "Идёт загрузка данных, подождите...",
+                    Toast.LENGTH_LONG
+            ).show()
+
+            Thread(Runnable {val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
 
                 net.lingala.zip4j.ZipFile(File(path + "/images.zip")).extractAll(path)
                 val ScrollButton = findViewById<ImageButton>(R.id.swipeButton)
@@ -295,8 +303,17 @@ class MainActivity : AppCompatActivity() {
                     val swipemenu2 = findViewById<NavigationView>(R.id.nav_view)
                     swipemenu1.openDrawer(swipemenu2)
                 }
-            }).start()  //распаковка с помощью библиотеки
-
+                swipemenu1.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+            }).start()
+        }
+        else{
+            val ScrollButton = findViewById<ImageButton>(R.id.swipeButton)
+            ScrollButton.setOnClickListener {
+                val swipemenu1 = findViewById<DrawerLayout>(R.id.drawer_layout)     //кнопка отрытия меню
+                val swipemenu2 = findViewById<NavigationView>(R.id.nav_view)
+                swipemenu1.openDrawer(swipemenu2)
+            }
+        }
 
 
 
