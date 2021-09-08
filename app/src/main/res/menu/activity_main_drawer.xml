@@ -5,17 +5,29 @@
     tools:ignore="DuplicateIds">
     <group android:menuCategory="container">
         <item
-            android:id="@+id/Settings"
-            android:title="Настройки"></item>
-    </group>
-    <group android:menuCategory="container"
-        >
-        <item
             android:id="@+id/about"
             android:title="Создатели"
             />
-        <item android:title="Добавить пользователей" android:visible="false" android:id="@+id/adminbutton"/>
-        <item android:title="Обновить данные" android:id="@+id/updatedata"/>
+        <item
+            android:id="@+id/gp21"
+            android:title="ГП 21 0307"
+            />
+        <item
+            android:id="@+id/pto"
+            android:title="Запуск ПТО"
+            />
+        <item
+            android:id="@+id/sam28"
+            android:title="Заряд 12 САМ 28"
+            />
+        <item
+            android:id="@+id/faza"
+            android:title="ФЗЧ выпрямитель"
+            />
+        <item
+            android:id="@+id/magnet"
+            android:title="Усилитель Магнитный"
+            />
     </group>
 
 </menu>

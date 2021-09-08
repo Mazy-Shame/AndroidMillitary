@@ -36,11 +36,6 @@ class Arcticle() : AppCompatActivity() {
 
             val file = File(path + "/images1/${Storage.img}")
             Log.d("filepath", "${file.path}")
-            if (file.exists()) {
-                Toast.makeText(applicationContext, "Существует", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(applicationContext, "Не существует", Toast.LENGTH_LONG).show()
-            }
 
             val intent = Intent(Intent.ACTION_VIEW)
             intent.setDataAndType(Uri.fromFile(file), "application/vnd.openxmlformats-officedocument.presentationml.presentation")

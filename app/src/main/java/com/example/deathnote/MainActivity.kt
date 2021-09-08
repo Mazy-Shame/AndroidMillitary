@@ -1,32 +1,28 @@
 package com.example.deathnote
 
-import android.app.DownloadManager
 import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.os.Handler
 import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.ImageButton
+import android.widget.ListView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.deathnote.About.About
-import com.example.deathnote.AddUser.AddUser
 import com.example.deathnote.HelperClasses.CopyClass
-import com.example.deathnote.HelperClasses.downloadDB
-import com.example.deathnote.Options.Options
 import com.example.deathnote.Аuthentication.Authentication
-import com.google.android.gms.tasks.Tasks.await
 import com.google.android.material.navigation.NavigationView
 import java.io.File
-import java.net.URL
 
 
 class MainActivity : AppCompatActivity() {
@@ -70,11 +66,8 @@ class MainActivity : AppCompatActivity() {
             setContentView(R.layout.activity_main)
 
             decompresszip() //распаковка
-
-            setClickonOptions()
             setOnClickOpenPresentation()
-            isAdminEnter()
-            setOnClickUpdateData()
+            playVideo()
 
 //            dbhelp.openDataBase()
 
@@ -226,27 +219,27 @@ class MainActivity : AppCompatActivity() {
         //делаем кнопку перехода назад недоступной
     }
 
-    private fun isAdminEnter(){
-        val navView = findViewById<View>(R.id.nav_view) as NavigationView
-        val menu = navView.menu
-        if (Storage.isAdmin == true){
-            menu.findItem(R.id.adminbutton).isVisible = true
-            menu.findItem(R.id.adminbutton).setOnMenuItemClickListener(MenuItem.OnMenuItemClickListener {
-                startActivity(Intent(applicationContext, AddUser::class.java))
-                true
-            })
-        }
+//    private fun isAdminEnter(){
+//        val navView = findViewById<View>(R.id.nav_view) as NavigationView
+//        val menu = navView.menu
+//        if (Storage.isAdmin == true){
+//            menu.findItem(R.id.adminbutton).isVisible = true
+//            menu.findItem(R.id.adminbutton).setOnMenuItemClickListener(MenuItem.OnMenuItemClickListener {
+//                startActivity(Intent(applicationContext, AddUser::class.java))
+//                true
+//            })
+//        }
+//
+//    }
 
-    }
-
-    private fun setClickonOptions() {                                               //кликлистенер на меню настроек
-        val navView = findViewById<View>(R.id.nav_view) as NavigationView
-        val menu = navView.menu
-        menu.findItem(R.id.Settings).setOnMenuItemClickListener(MenuItem.OnMenuItemClickListener { item ->
-            startActivity(Intent(applicationContext, Options::class.java))
-            true
-        })
-    }
+//    private fun setClickonOptions() {                                               //кликлистенер на меню настроек
+//        val navView = findViewById<View>(R.id.nav_view) as NavigationView
+//        val menu = navView.menu
+//        menu.findItem(R.id.Settings).setOnMenuItemClickListener(MenuItem.OnMenuItemClickListener { item ->
+//            startActivity(Intent(applicationContext, Options::class.java))
+//            true
+//        })
+//    }
 
     private fun setOnClickOpenPresentation(){  ///создатели
         val navView = findViewById<View>(R.id.nav_view) as NavigationView
@@ -258,28 +251,25 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun  setOnClickUpdateData(){
-
-        val navView = findViewById<View>(R.id.nav_view) as NavigationView
-        val menu = navView.menu
-        menu.findItem(R.id.updatedata).setOnMenuItemClickListener(MenuItem.OnMenuItemClickListener { item ->
-            val olddb = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath + "/war1.db")
-            if (olddb.exists()){
-                olddb.delete()
-            }
-            val down = downloadDB()
-            Thread(Runnable {
-                val downloadmanager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-                down.ondownload("https://war2.ssau.ru/owncloud/index.php/s/pY8ICTgGODq2tjZ/download", downloadmanager)
-            }).start()
-
-
-            true
-        })
-
-
-
-    }
+//    private fun  setOnClickUpdateData(){
+//
+//        val navView = findViewById<View>(R.id.nav_view) as NavigationView
+//        val menu = navView.menu
+//        menu.findItem(R.id.updatedata).setOnMenuItemClickListener(MenuItem.OnMenuItemClickListener { item ->
+//            val olddb = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath + "/war1.db")
+//            if (olddb.exists()){
+//                olddb.delete()
+//            }
+//            val down = downloadDB()
+//            Thread(Runnable {
+//                val downloadmanager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+//                down.ondownload("https://war2.ssau.ru/owncloud/index.php/s/pY8ICTgGODq2tjZ/download", downloadmanager)
+//            }).start()
+//
+//
+//            true
+//        })
+//    }
 
 
     private fun decompresszip(){
@@ -294,7 +284,8 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_LONG
             ).show()
 
-            Thread(Runnable {val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
+            Thread(Runnable {
+                val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).absolutePath
 
                 net.lingala.zip4j.ZipFile(File(path + "/images.zip")).extractAll(path)
                 val ScrollButton = findViewById<ImageButton>(R.id.swipeButton)
@@ -320,7 +311,41 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+// тут вешаются онклики на кнопки для запуска видео в меню
+    private fun playVideo() {
+        val navView = findViewById<View>(R.id.nav_view) as NavigationView
+        val menu = navView.menu
+        menu.findItem(R.id.sam28).setOnMenuItemClickListener(MenuItem.OnMenuItemClickListener { item ->
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=PaRlS5NzKxU&ab_channel=WarSsau")))
+            Log.i("Video", "Video Playing....")
+            true
+        })
 
+        menu.findItem(R.id.gp21).setOnMenuItemClickListener(MenuItem.OnMenuItemClickListener { item ->
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=G2eAkBXfavc&ab_channel=WarSsau")))
+            Log.i("Video", "Video Playing....")
+            true
+        })
+
+        menu.findItem(R.id.pto).setOnMenuItemClickListener(MenuItem.OnMenuItemClickListener { item ->
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=GOmomyoTkXs&ab_channel=WarSsau")))
+            Log.i("Video", "Video Playing....")
+            true
+        })
+
+        menu.findItem(R.id.faza).setOnMenuItemClickListener(MenuItem.OnMenuItemClickListener { item ->
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=lR-V-g0-xk0&ab_channel=WarSsau")))
+            Log.i("Video", "Video Playing....")
+            true
+        })
+
+
+        menu.findItem(R.id.magnet).setOnMenuItemClickListener(MenuItem.OnMenuItemClickListener { item ->
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=o9yvkEnqzK8&ab_channel=WarSsau")))
+            Log.i("Video", "Video Playing....")
+            true
+        })
+    }
 
 
 }
